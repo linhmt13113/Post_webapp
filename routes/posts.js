@@ -4,7 +4,7 @@ const router = express.Router();
 // Load model
 const Post = require('../models/Post');
 
-// Hien thiform de tao bai viet moi
+// Hien thi form de tao bai viet moi
 router.get('/add', (req, res) => {
   res.render('posts/add'); // cái đường dẫn vô đứng từ app.js nó tự vào cấp con là /view nhưng k thấy add.handlebars phải dẫn nó qua cấp con nữa là /post
 });
@@ -24,6 +24,12 @@ router.post('/', async (req, res) => {
     await newPost.save();
     res.redirect('/posts');
   }
+});
+
+// Hien thi tat ca cac bai viet
+router.get('/', async (req, res) => {
+  const posts = await Post.find().lean().sort({ date: -1 });
+  res.render('posts/index', { posts });
 });
 
 module.exports = router;
