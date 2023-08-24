@@ -1,19 +1,33 @@
-const express = require('express')
+const express = require("express");
+const { engine } = require("express-handlebars");
 
-
-const connectDB = require('./config/db')
+const connectDB = require("./config/db");
+const posts = require("./routes/posts");
 
 // Khoi dong app
-const app = express()
+const app = express();
 
+// Khoi dong Handlebars middleware
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
 
 // Khoi dong express middleware
-app.use(express.json())
+app.use(express.json());
 
 // ket noi co so du lieu
-connectDB()
+connectDB();
 
+// Mot so routes co ban, co the dua vao file rieng trong thu muc route
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
-const PORT = 5000
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+// mang routes vao de su dung
+app.use("/posts", posts);
 
-app.listen(PORT, () => console.log(`Server started at post ${PORT}`))
+const PORT = 5000;
+
+app.listen(PORT, () => console.log(`Server started at post ${PORT}`));
