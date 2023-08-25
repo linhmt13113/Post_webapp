@@ -38,6 +38,5 @@ app.get('/about', (req, res) => {
 // mang routes vao de su dung
 app.use('/posts', posts);
 
-const PORT = 5000;
-
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started at post ${PORT}`));
