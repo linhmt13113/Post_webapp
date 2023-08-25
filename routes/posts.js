@@ -32,4 +32,17 @@ router.get('/', async (req, res) => {
   res.render('posts/index', { posts });
 });
 
+// Hien thi form de nguoi dung thay doi bai viet
+router.get('/edit/:id', async (req, res) => {
+  const post = await Post.findOne({ _id: req.params.id }).lean();
+  res.render('posts/edit', { post });
+});
+
+// Cap nhat bai viet moi vao co so du lieu
+router.put('/:id', async (req, res) => {
+  const { title, text } = req.body;
+  await Post.findByIdAndUpdate({ _id: req.params.id }, { title, text });
+  res.redirect('/posts');
+});
+
 module.exports = router;
