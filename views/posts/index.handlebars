@@ -4,6 +4,19 @@
     <p>{{text}}</p>
     <a href='/posts/edit/{{_id}}' class='btn btn-dark btn-block mb-2'>Edit Post</a>
 
+    <form action='/posts/{{_id}}?_method=DELETE' method='post'>
+      <input type='hidden' name='_method' value='DELETE' />
+      <input type='submit' value='Delete' class='btn btn-danger btn-block' />
+    </form>
   </div>
+{{else}}
+  <p style='color:blue;text-align:center;font-size: 100px'>There are no posts
+    yet
+  </p>
+  <a
+    href='/posts/add'
+    class='btn btn-dark btn-lg'
+    style='display: inherit;'
+  >Create New Post</a>
 
 {{/each}}

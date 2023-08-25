@@ -41,7 +41,14 @@ router.get('/edit/:id', async (req, res) => {
 // Cap nhat bai viet moi vao co so du lieu
 router.put('/:id', async (req, res) => {
   const { title, text } = req.body;
-  await Post.findByIdAndUpdate({ _id: req.params.id }, { title, text });
+  await Post.findOneAndUpdate({ _id: req.params.id }, { title, text });
+  res.redirect('/posts');
+});
+
+// Xoa bai viet
+router.delete('/:id', async (req, res) => {
+  const { title, text } = req.body;
+  await Post.findOneAndRemove({ _id: req.params.id }, { title, text });
   res.redirect('/posts');
 });
 
